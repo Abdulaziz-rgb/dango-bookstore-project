@@ -1,20 +1,20 @@
 version: '3.7'
+
 services:
   web:
     build: .
     command: python /code/manage.py runserver 0.0.0.0:8000
     environment:
-      - ENVIRONMENT=development
+      - ENVIRONMENT=production
       - SECRET_KEY=django-insecure-vg1jg=9v752oz)7q+r+lse(=z5y@b9gvv@t(#e7hdtnm32xlyp
-      - DEBUG=1
+      - DEBUG=0
       - STRIPE_TEST_PUBLISHABLE_KEY=pk_test_51LZqcrAv9Nysq6BOdEIQgfrwfNof8dP4YIHCf5Ihs8jNPaE4aVJPXqvEr1ry2dMpngTMoxlf0FRaH3xmv8wjNJd000P7QVrMSa
       - STRIPE_TEST_SECRET_KEY=sk_test_51LZqcrAv9Nysq6BOVJZ4kENvcn3DupRUz7Ym1L2Qg7OLqXOQpGk8QYUZP6Fk3Ts3xVMnlLIecxNgcdLxgpZ0OYuO00Gx7h4zj7
-    volumes:
-      - .:/code
     ports:
       - 8000:8000
     depends_on:
       - db
+  
   db:
     image: postgres
     volumes:
@@ -22,5 +22,6 @@ services:
     environment:
       POSTGRES_DB: "db"
       POSTGRES_HOST_AUTH_METHOD: "trust"
+
 volumes:
   postgres_data:
